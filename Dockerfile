@@ -1,4 +1,9 @@
 FROM centos:latest
-RUN yum install -y httpd
-ADD https://www.free-css.com/assets/images/free-css-templates/page22/rambling-soul-4.jpg /var/www/html
+RUN yum install -y httpd unzip zip
+ADD https://www.free-css.com/assets/files/free-css-templates/download/page247/kindle.zip /var/www/html
+WORKDIR /var/www/html
+RUN unzip kindle.zip
+RUN cp markups-kindle/* .
+RUN rm -rf markups-kindle __MACOSX kindle.zip
+CMD ["/usr/sbin/httpd", "-D", "FOREGROUND"]
 EXPOSE 80
